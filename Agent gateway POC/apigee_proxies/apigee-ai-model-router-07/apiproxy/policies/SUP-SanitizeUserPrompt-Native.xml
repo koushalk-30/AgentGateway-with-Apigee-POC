@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SanitizeUserPrompt async="false" continueOnError="true" enabled="true" name="SUP-SanitizeUserPrompt-Native">
+    <DisplayName>SUP-SanitizeUserPrompt-Native</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <ModelArmor>
+        <TemplateName>projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template</TemplateName>
+    </ModelArmor>
+    <UserPromptSource>{routing.user_prompt_text}</UserPromptSource>
+</SanitizeUserPrompt>

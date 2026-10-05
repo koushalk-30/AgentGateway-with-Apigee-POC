@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SanitizeModelResponse async="false" continueOnError="false" enabled="true" name="SMR-SanitizeModelResponse">
+    <DisplayName>SMR-SanitizeModelResponse</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <ModelArmor>
+        <TemplateName>projects/test-501813/locations/us-central1/templates/agw-response-template</TemplateName>
+    </ModelArmor>
+    <UserPromptSource>{routing.user_prompt_text}</UserPromptSource>
+    <LLMResponseSource>{jsonPath('$.candidates[-1].content.parts',response.content,true)}</LLMResponseSource>
+</SanitizeModelResponse>

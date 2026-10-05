@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step><Name>VA-VerifyAPIKey</Name></Step>
+            <Step><Name>SA-RateLimit</Name></Step>
+            <Step><Name>JS-VerifyIngressIAP</Name></Step>
+            <Step>
+                <Name>SC-LogEgressIAPDenial</Name>
+                <Condition>iap.authz.denied = "true"</Condition>
+            </Step>
+            <Step>
+                <Name>RF-IAPAuthorizationDenied</Name>
+                <Condition>iap.authz.denied = "true"</Condition>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <HTTPProxyConnection>
+        <BasePath>/weather-agent-07</BasePath>
+    </HTTPProxyConnection>
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

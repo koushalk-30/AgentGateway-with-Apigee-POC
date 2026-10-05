@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupCache continueOnError="true" enabled="true" name="LC-SemanticCache">
+    <DisplayName>LC-SemanticCache</DisplayName>
+    <CacheKey>
+        <Prefix>poc07-semcache</Prefix>
+        <KeyFragment ref="semantic.cache_key"/>
+    </CacheKey>
+    <Scope>Global</Scope>
+    <AssignTo>semantic.cached_response</AssignTo>
+</LookupCache>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy name="apigee-ai-model-router-07">
+    <DisplayName>apigee-ai-model-router-07</DisplayName>
+    <Description>Southbound Apigee AI Model Router for MCP Toolset Agent</Description>
+</APIProxy>

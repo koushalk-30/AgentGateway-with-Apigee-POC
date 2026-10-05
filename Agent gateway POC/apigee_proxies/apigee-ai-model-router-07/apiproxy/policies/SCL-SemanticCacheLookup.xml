@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SemanticCacheLookup async="false" continueOnError="true" enabled="true" name="SCL-SemanticCacheLookup">
+    <DisplayName>SCL-SemanticCacheLookup</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <UserPromptSource>{routing.user_prompt_text}</UserPromptSource>
+    <Embeddings>
+        <VertexAI>
+            <URL>https://us-central1-aiplatform.googleapis.com/v1/projects/test-501813/locations/us-central1/publishers/google/models/text-embedding-004:predict</URL>
+        </VertexAI>
+    </Embeddings>
+    <SimilaritySearch>
+        <VertexAI>
+            <URL>https://us-central1-aiplatform.googleapis.com/v1/projects/test-501813/locations/us-central1/indexEndpoints/poc06-semantic-index:findNeighbors</URL>
+            <Threshold>0.9</Threshold>
+            <DeployedIndexID>poc06_deployed_index</DeployedIndexID>
+            <DistanceMeasureType>DOT_PRODUCT_DISTANCE</DistanceMeasureType>
+        </VertexAI>
+    </SimilaritySearch>
+</SemanticCacheLookup>

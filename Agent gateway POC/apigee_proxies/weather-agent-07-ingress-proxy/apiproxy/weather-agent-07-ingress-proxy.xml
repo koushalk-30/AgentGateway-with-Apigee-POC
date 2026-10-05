@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy name="weather-agent-07-ingress-proxy">
+    <DisplayName>weather-agent-07-ingress-proxy</DisplayName>
+    <Description>Northbound Ingress Proxy (MCP Toolset + Apigee AI Model Router)</Description>
+</APIProxy>

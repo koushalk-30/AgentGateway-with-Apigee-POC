@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LLMTokenQuota continueOnError="false" enabled="true" name="LTQ-TokenQuota-Enforce" type="rollingwindow">
+    <DisplayName>LTQ-TokenQuota-Enforce</DisplayName>
+    <SharedName>poc07-llm-token-bucket-v1</SharedName>
+    <EnforceOnly>true</EnforceOnly>
+    <Identifier ref="routing.target_model"/>
+    <Allow count="500000"/>
+    <Interval>30</Interval>
+    <TimeUnit>minute</TimeUnit>
+    <Distributed>true</Distributed>
+    <LLMModelSource>{routing.target_model}</LLMModelSource>
+</LLMTokenQuota>

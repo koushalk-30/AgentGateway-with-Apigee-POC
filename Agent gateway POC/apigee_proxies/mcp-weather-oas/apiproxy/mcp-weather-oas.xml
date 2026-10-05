@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy name="mcp-weather-oas">
+    <DisplayName>mcp-weather-oas</DisplayName>
+    <Description>Apigee OpenAPI MCP Server with VerifyAPIKey and OAuthV2</Description>
+    <BasePaths>/mcp</BasePaths>
+    <BasePaths>/.well-known/oauth-protected-resource/mcp</BasePaths>
+    <Policies>
+        <Policy>CORS-Allow</Policy>
+        <Policy>AM-PropagateOAuthApiKey</Policy>
+        <Policy>VA-VerifyAPIKey</Policy>
+        <Policy>OAuthV2-GenerateAccessToken</Policy>
+        <Policy>OAuthV2-GenerateAuthorizationCode</Policy>
+        <Policy>OAuthV2-VerifyAccessToken</Policy>
+        <Policy>VerifyJWT-GoogleAgent</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+        <ProxyEndpoint>oauth-prm-endpoint</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>oas://generated_spec_1.yaml</Resource>
+    </Resources>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+        <TargetEndpoint>oauth-prm-endpoint</TargetEndpoint>
+    </TargetEndpoints>
+</APIProxy>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 continueOnError="false" enabled="true" name="OAuthV2-GenerateAuthorizationCode">
+  <DisplayName>OAuthV2-GenerateAuthorizationCode</DisplayName>
+  <Operation>GenerateAuthorizationCode</Operation>
+  <SupportedGrantTypes/>
+  <GenerateResponse enabled="true"/>
+  <ClientId>request.queryparam.client_id</ClientId>
+  <ResponseType>request.queryparam.response_type </ResponseType>
+  <RedirectUri>request.queryparam.redirect_uri</RedirectUri>
+</OAuthV2>

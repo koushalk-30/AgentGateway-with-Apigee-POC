@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LLMTokenQuota continueOnError="false" enabled="true" name="LTQ-TokenQuota-Count" type="rollingwindow">
+    <DisplayName>LTQ-TokenQuota-Count</DisplayName>
+    <SharedName>poc07-llm-token-bucket-v1</SharedName>
+    <CountOnly>true</CountOnly>
+    <Identifier ref="routing.target_model"/>
+    <Allow count="500000"/>
+    <Interval>30</Interval>
+    <TimeUnit>minute</TimeUnit>
+    <Distributed>true</Distributed>
+    <LLMTokenUsageSource>{jsonPath('$.usageMetadata.totalTokenCount',response.content,true)}</LLMTokenUsageSource>
+    <LLMModelSource>{routing.target_model}</LLMModelSource>
+</LLMTokenQuota>

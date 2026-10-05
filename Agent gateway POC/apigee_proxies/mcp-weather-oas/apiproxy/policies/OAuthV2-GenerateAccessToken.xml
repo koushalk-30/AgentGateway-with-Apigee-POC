@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 continueOnError="false" enabled="true" name="OAuthV2-GenerateAccessToken">
+  <DisplayName>OAuthV2-GenerateAccessToken</DisplayName>
+  <Operation>GenerateAccessToken</Operation>
+  <ExpiresIn>3600000</ExpiresIn>
+  <!-- Token expires in 1 hour -->
+  <SupportedGrantTypes>
+    <GrantType>client_credentials</GrantType>
+    <GrantType>authorization_code</GrantType>
+  </SupportedGrantTypes>
+  <GrantType>request.formparam.grant_type</GrantType>
+  <Code>request.formparam.code</Code>
+  <GenerateResponse enabled="true"/>
+</OAuthV2>

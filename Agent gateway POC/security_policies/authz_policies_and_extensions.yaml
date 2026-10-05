@@ -1,0 +1,50 @@
+# Google Cloud Network Security AuthzPolicies & Service Extensions (test-501813 / us-central1)
+---
+# 1. Northbound Ingress Gateway (agw-foo-us-central1-cta) - Model Armor AuthzExtension
+name: projects/test-501813/locations/us-central1/authzExtensions/agw-foo-us-central1-cta-svc-ext-authz-modar
+service: modelarmor.us-central1.rep.googleapis.com
+failOpen: true
+timeout: 2s
+metadata:
+  model_armor_settings: '[{"request_template_id":"projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template","response_template_id":"projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template"}]'
+---
+# 2. Northbound Ingress Gateway (agw-foo-us-central1-cta) - IAP AuthzExtension
+name: projects/test-501813/locations/us-central1/authzExtensions/agw-foo-us-central1-cta-svc-ext-authz-iap-enforced
+service: iap.googleapis.com
+failOpen: true
+timeout: 1s
+metadata:
+  iamEnforcementMode: "ENFORCE"
+  iapPolicyVersion: "V1"
+---
+# 3. Southbound Egress Gateway (fresh-agent-egress-gateway) - Model Armor AuthzExtension
+name: projects/test-501813/locations/us-central1/authzExtensions/fresh-agw-ma-authz
+service: modelarmor.us-central1.rep.googleapis.com
+failOpen: true
+timeout: 2s
+metadata:
+  model_armor_settings: '[{"request_template_id":"projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template","response_template_id":"projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template"}]'
+---
+# 4. Southbound Egress Gateway (fresh-agent-egress-gateway) - IAP / SPIFFE AuthzExtension
+name: projects/test-501813/locations/us-central1/authzExtensions/fresh-agw-iap-authz
+service: iap.googleapis.com
+failOpen: true
+timeout: 1s
+metadata:
+  iamEnforcementMode: "ENFORCE"
+  iapPolicyVersion: "V1"
+---
+# 5. Northbound & Southbound AuthzPolicies (CUSTOM_PROVIDER binding both IAP & Model Armor extensions)
+action: CUSTOM
+target:
+  loadBalancingScheme: INTERNAL_MANAGED
+  resources:
+    - projects/test-501813/locations/us-central1/agentGateways/agw-foo-us-central1-cta
+    - projects/test-501813/locations/us-central1/agentGateways/fresh-agent-egress-gateway
+customProvider:
+  authzExtension:
+    resources:
+      - projects/test-501813/locations/us-central1/authzExtensions/agw-foo-us-central1-cta-svc-ext-authz-iap-enforced
+      - projects/test-501813/locations/us-central1/authzExtensions/agw-foo-us-central1-cta-svc-ext-authz-modar
+      - projects/test-501813/locations/us-central1/authzExtensions/fresh-agw-iap-authz
+      - projects/test-501813/locations/us-central1/authzExtensions/fresh-agw-ma-authz

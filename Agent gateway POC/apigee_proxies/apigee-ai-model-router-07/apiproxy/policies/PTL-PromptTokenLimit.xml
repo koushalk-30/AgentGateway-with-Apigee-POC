@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PromptTokenLimit continueOnError="false" enabled="true" name="PTL-PromptTokenLimit">
+    <DisplayName>PTL-PromptTokenLimit</DisplayName>
+    <UserPromptSource>{routing.user_prompt_text}</UserPromptSource>
+    <Identifier ref="routing.target_model"/>
+    <Rate>90pm</Rate>
+    <UseEffectiveCount>true</UseEffectiveCount>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</PromptTokenLimit>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <Description>Apigee Dynamic AI Model Router for MCP Toolset Agent</Description>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step><Name>VA-VerifyAPIKey</Name></Step>
+            <Step><Name>SA-PromptBurstLimit</Name></Step>
+            <Step><Name>JS-InspectPromptAndRoute</Name></Step>
+            <Step>
+                <Name>SC-ModelArmor-SanitizePrompt</Name>
+                <Condition>routing.is_tool_response != "true"</Condition>
+            </Step>
+            <Step>
+                <Name>JS-EvaluateModelArmor</Name>
+                <Condition>routing.is_tool_response != "true"</Condition>
+            </Step>
+            <Step>
+                <Name>SUP-SanitizeUserPrompt</Name>
+                <Condition>security.unsafe_prompt = "true" or modelarmor.filterMatchState = "MATCH_FOUND"</Condition>
+            </Step>
+            <Step><Name>SCL-SemanticCacheLookup</Name></Step>
+            <Step><Name>LC-SemanticCache</Name></Step>
+            <Step>
+                <Name>PTL-PromptTokenLimit</Name>
+                <Condition>lookupcache.LC-SemanticCache.cachehit != "true" and routing.is_tool_response != "true"</Condition>
+            </Step>
+            <Step>
+                <Name>LTQ-TokenQuota-Enforce</Name>
+                <Condition>lookupcache.LC-SemanticCache.cachehit != "true"</Condition>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>AM-RestoreSemanticCache</Name>
+                <Condition>lookupcache.LC-SemanticCache.cachehit = "true"</Condition>
+            </Step>
+            <Step>
+                <Name>SMR-SanitizeModelResponse</Name>
+                <Condition>security.unsafe_prompt = "true"</Condition>
+            </Step>
+            <Step>
+                <Name>LTQ-TokenQuota-Count</Name>
+                <Condition>lookupcache.LC-SemanticCache.cachehit != "true"</Condition>
+            </Step>
+            <Step><Name>SCP-SemanticCachePopulate</Name></Step>
+            <Step><Name>JS-TagModelResponse</Name></Step>
+            <Step>
+                <Name>PC-SemanticCache</Name>
+                <Condition>lookupcache.LC-SemanticCache.cachehit != "true" and semantic.is_final_text = "true"</Condition>
+            </Step>
+        </Response>
+    </PreFlow>
+    <HTTPProxyConnection>
+        <BasePath>/llm-router-07</BasePath>
+    </HTTPProxyConnection>
+
+    <!-- 0. Semantic Cache Hit Route -->
+    <RouteRule name="route-semantic-cache-hit">
+        <Condition>lookupcache.LC-SemanticCache.cachehit = "true"</Condition>
+    </RouteRule>
+
+    <!-- 1. Rule 1: Short / Greeting Prompt -> gemini-2.5-flash-lite -->
+    <RouteRule name="route-gemini-2-5-flash-lite">
+        <Condition>routing.target_model = "gemini-2.5-flash-lite"</Condition>
+        <TargetEndpoint>target-gemini-2-5-flash-lite</TargetEndpoint>
+    </RouteRule>
+
+    <!-- 2. Rule 2: Standard Weather & MCP Forecast Prompt -> gemini-2.5-flash -->
+    <RouteRule name="route-gemini-2-5-flash">
+        <Condition>routing.target_model = "gemini-2.5-flash"</Condition>
+        <TargetEndpoint>target-gemini-2-5-flash</TargetEndpoint>
+    </RouteRule>
+
+    <!-- 3. Rule 3: Deep Aviation / Turbulence Risk Prompt -> gemini-2.5-pro -->
+    <RouteRule name="route-gemini-2-5-pro">
+        <Condition>routing.target_model = "gemini-2.5-pro"</Condition>
+        <TargetEndpoint>target-gemini-2-5-pro</TargetEndpoint>
+    </RouteRule>
+
+    <!-- 4. Rule 4: defaultModel Fallback -> gemini-2.0-flash -->
+    <RouteRule name="route-default-gemini-2-0-flash">
+        <TargetEndpoint>target-gemini-2-0-flash</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

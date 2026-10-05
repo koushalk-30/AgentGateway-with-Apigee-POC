@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="target-gemini-2-5-flash">
+    <Description>Vertex AI Model Garden Target: gemini-2.5-flash</Description>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step><Name>AM-PrepareModelTarget</Name></Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <HTTPTargetConnection>
+        <Authentication>
+            <GoogleAccessToken>
+                <Scopes>
+                    <Scope>https://www.googleapis.com/auth/cloud-platform</Scope>
+                </Scopes>
+            </GoogleAccessToken>
+        </Authentication>
+        <URL>https://us-central1-aiplatform.googleapis.com/v1/projects/test-501813/locations/us-central1/publishers/google/models/gemini-2.5-flash:generateContent</URL>
+    </HTTPTargetConnection>
+</TargetEndpoint>

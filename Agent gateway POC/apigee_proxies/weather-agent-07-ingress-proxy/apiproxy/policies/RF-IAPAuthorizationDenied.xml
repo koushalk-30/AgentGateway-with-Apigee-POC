@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="RF-IAPAuthorizationDenied">
+    <DisplayName>RF-IAPAuthorizationDenied</DisplayName>
+    <FaultResponse>
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json" variablePrefix="@" variableSuffix="#">[{
+  "error": {
+    "code": 403,
+    "message": "IAP Authorization Denied at Egress Agent Gateway ('fresh-agent-egress-gateway' / 'fresh-agw-iap-policy'): Principal '@iap.authz.principal#' lacks 'roles/iap.egressor' permission to egress to 'https://35.244.241.176.nip.io/mcp'.",
+    "status": "PERMISSION_DENIED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "IAM_PERMISSION_DENIED",
+        "domain": "iap.googleapis.com",
+        "metadata": {
+          "gateway": "projects/test-501813/locations/us-central1/agentGateways/fresh-agent-egress-gateway",
+          "policy": "fresh-agw-iap-policy",
+          "principal": "@iap.authz.principal#",
+          "required_role": "roles/iap.egressor"
+        }
+      }
+    ]
+  }
+}]</Payload>
+            <StatusCode>403</StatusCode>
+            <ReasonPhrase>Forbidden</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

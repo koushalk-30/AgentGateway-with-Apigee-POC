@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="SUP-SanitizeUserPrompt">
+    <DisplayName>SUP-SanitizeUserPrompt</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+                <Header name="X-Apigee-Security-Policy">SUP-SanitizeUserPrompt</Header>
+                <Header name="X-Model-Armor-Template">projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template</Header>
+                <Header name="X-Model-Armor-MatchState">MATCH_FOUND</Header>
+            </Headers>
+            <Payload contentType="application/json">{
+  "fault": {
+    "faultstring": "User prompt was blocked by Model Armor.",
+    "detail": {
+      "errorcode": "steps.sanitize.modelarmor.UserPromptBlocked",
+      "template": "projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template",
+      "filterMatchState": "MATCH_FOUND",
+      "violation": "PROMPT_INJECTION_AND_JAILBREAK"
+    }
+  }
+}</Payload>
+            <StatusCode>400</StatusCode>
+            <ReasonPhrase>Bad Request</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

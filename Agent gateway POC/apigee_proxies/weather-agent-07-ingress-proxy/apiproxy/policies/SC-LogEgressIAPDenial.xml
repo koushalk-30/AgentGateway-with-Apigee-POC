@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout continueOnError="true" enabled="true" name="SC-LogEgressIAPDenial">
+    <DisplayName>SC-LogEgressIAPDenial</DisplayName>
+    <Request clearPayload="true">
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+                <Header name="X-Goog-User-Project">test-501813</Header>
+            </Headers>
+            <Payload contentType="application/json" variablePrefix="@" variableSuffix="#">{
+  "entries": [
+    {
+      "logName": "projects/test-501813/logs/networkservices.googleapis.com%2Fgateway_requests",
+      "resource": {
+        "type": "networkservices.googleapis.com/Gateway",
+        "labels": {
+          "location": "us-central1",
+          "network_name": "projects/pb4247fab2cb53178p-tp/global/networks/uk1-25feb-2-vpc4",
+          "gateway_type": "SECURE_WEB_GATEWAY",
+          "resource_container": "951503373927",
+          "gateway_name": "fresh-agent-egress-gateway"
+        }
+      },
+      "httpRequest": {
+        "requestMethod": "POST",
+        "requestUrl": "https://35.244.241.176.nip.io/mcp",
+        "status": 403,
+        "userAgent": "python-httpx/0.28.1",
+        "protocol": "HTTP/1.1"
+      },
+      "severity": "WARNING",
+      "jsonPayload": {
+        "@type": "type.googleapis.com/google.cloud.loadbalancing.type.LoadBalancerLogEntry",
+        "tlsSniHostname": "35.244.241.176.nip.io",
+        "authzPolicyInfo": {
+          "result": "DENIED",
+          "policies": [
+            {
+              "name": "projects/836600824868/locations/us-central1/authzPolicies/fresh-agw-iap-policy",
+              "result": "DENIED"
+            }
+          ]
+        },
+        "agentGatewayInfo": {
+          "agentRegistryResource": "projects/951503373927/locations/global/mcpServers/agentregistry-00000000-0000-0000-d2d4-1318dbcb3102",
+          "mcpInfo": {
+            "method": "tools/call"
+          }
+        }
+      }
+    },
+    {
+      "logName": "projects/test-501813/logs/iap_audit",
+      "resource": {
+        "type": "networkservices.googleapis.com/Gateway",
+        "labels": {
+          "location": "us-central1",
+          "gateway_name": "fresh-agent-egress-gateway"
+        }
+      },
+      "severity": "ERROR",
+      "protoPayload": {
+        "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+        "serviceName": "iap.googleapis.com",
+        "methodName": "google.cloud.iap.v1.IdentityAwareProxy.Authorize",
+        "authenticationInfo": {
+          "principalEmail": "@iap.authz.principal#",
+          "principalSubject": "principal://agents.global.org-223808529687.system.id.goog/resources/aiplatform/projects/951503373927/locations/us-central1/reasoningEngines/8597428313499107328"
+        },
+        "requestMetadata": {
+          "requestAttributes": {
+            "host": "35.244.241.176.nip.io"
+          }
+        },
+        "authorizationInfo": [
+          {
+            "resource": "projects/951503373927/locations/global/agentRegistry/mcpServers/agentregistry-00000000-0000-0000-d2d4-1318dbcb3102",
+            "permission": "iap.webServiceVersions.accessViaIap",
+            "granted": false
+          }
+        ]
+      }
+    }
+  ]
+}</Payload>
+            <Verb>POST</Verb>
+        </Set>
+    </Request>
+    <Response>calloutLogResponse</Response>
+    <HTTPTargetConnection>
+        <Authentication>
+            <GoogleAccessToken>
+                <Scopes>
+                    <Scope>https://www.googleapis.com/auth/cloud-platform</Scope>
+                </Scopes>
+            </GoogleAccessToken>
+        </Authentication>
+        <URL>https://logging.googleapis.com/v2/entries:write</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>

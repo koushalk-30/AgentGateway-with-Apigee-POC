@@ -1,0 +1,25 @@
+# Google Cloud Model Armor Templates (test-501813 / us-central1)
+# 1. Primary Safety Template: projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template
+# 2. Strict Template:         projects/test-501813/locations/us-central1/templates/ma-poc07-strict-template
+# 3. Agent Armor Template:    projects/test-501813/locations/us-central1/templates/weather-agent-07-armor
+
+filterConfig:
+  maliciousUriFilterSettings:
+    filterEnforcement: ENABLED
+  piAndJailbreakFilterSettings:
+    confidenceLevel: LOW_AND_ABOVE
+    filterEnforcement: ENABLED
+  raiSettings:
+    raiFilters:
+      - filterType: DANGEROUS
+        confidenceLevel: LOW_AND_ABOVE
+      - filterType: HATE_SPEECH
+        confidenceLevel: MEDIUM_AND_ABOVE
+      - filterType: HARASSMENT
+        confidenceLevel: MEDIUM_AND_ABOVE
+      - filterType: SEXUALLY_EXPLICIT
+        confidenceLevel: MEDIUM_AND_ABOVE
+  sdpSettings:
+    advancedConfig:
+      inspectTemplate: projects/test-501813/locations/us-central1/inspectTemplates/weather-agw-sdp-inspect-template
+      deidentifyTemplate: projects/test-501813/locations/us-central1/deidentifyTemplates/weather-agw-sdp-deid-template

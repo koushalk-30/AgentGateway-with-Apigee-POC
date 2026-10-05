@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="true" enabled="true" name="SC-ModelArmor-SanitizePrompt">
+    <DisplayName>SC-ModelArmor-SanitizePrompt</DisplayName>
+    <Request clearPayload="true">
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+                <Header name="X-Goog-User-Project">test-501813</Header>
+            </Headers>
+            <Payload contentType="application/json">{"userPromptData":{"text":"{routing.user_prompt_text}"}}</Payload>
+            <Verb>POST</Verb>
+        </Set>
+        <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    </Request>
+    <Response>modelarmor_resp</Response>
+    <HTTPTargetConnection>
+        <Properties>
+            <Property name="io.timeout.millis">10000</Property>
+        </Properties>
+        <SSLInfo>
+            <Enabled>true</Enabled>
+            <IgnoreValidationErrors>true</IgnoreValidationErrors>
+        </SSLInfo>
+        <Authentication>
+            <GoogleAccessToken>
+                <Scopes>
+                    <Scope>https://www.googleapis.com/auth/cloud-platform</Scope>
+                </Scopes>
+            </GoogleAccessToken>
+        </Authentication>
+        <URL>https://modelarmor.us-central1.rep.googleapis.com/v1/projects/test-501813/locations/us-central1/templates/fresh-agw-safety-template:sanitizeUserPrompt</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>

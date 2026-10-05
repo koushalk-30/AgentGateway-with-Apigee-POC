@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<VerifyJWT continueOnError="false" enabled="true" name="VerifyJWT-GoogleAgent">
+  <DisplayName>Verify JWT Google Agent</DisplayName>
+  <Algorithm>RS256</Algorithm>
+  <Source>request.header.Authorization</Source>
+  <!-- We don't check audience strictly here because Agent Engine uses the MCP URL as audience -->
+  <PublicKey>
+    <JWKS uri="https://www.googleapis.com/oauth2/v3/certs"/>
+  </PublicKey>
+  <Issuer>https://accounts.google.com</Issuer>
+</VerifyJWT>

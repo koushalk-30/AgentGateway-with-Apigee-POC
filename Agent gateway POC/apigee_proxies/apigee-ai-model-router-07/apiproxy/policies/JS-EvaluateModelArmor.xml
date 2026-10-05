@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript continueOnError="true" enabled="true" timeLimit="200" name="JS-EvaluateModelArmor">
+    <DisplayName>JS-EvaluateModelArmor</DisplayName>
+    <ResourceURL>jsc://JS-EvaluateModelArmor.js</ResourceURL>
+</Javascript>
